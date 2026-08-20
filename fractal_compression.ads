@@ -8,6 +8,11 @@ package Fractal_Compression is
    type Pixel is digits 5 range 0.0 .. 255.0;
    type Pixel_Grid is array (Positive range <>, Positive range <>) of Pixel;
    
+   type Coordinate is record
+      X : Positive;
+      Y : Positive;
+   end record;
+   
    -- Supported partitioning variants mentioned in literature/Wikipedia
    type Partition_Variant is (
       Square_Fixed,   -- Standard fixed block size
@@ -66,7 +71,7 @@ package Fractal_Compression is
    ) return Pixel_Grid;
 
    -- Helper Functions exposed for testing (V&V)
-   function Apply_Symmetry (X, Y, Size : Positive; Sym : Symmetry_Type) return record X, Y : Positive; end record;
+   function Apply_Symmetry (X, Y, Size : Positive; Sym : Symmetry_Type) return Coordinate;
    function Downsample (Domain : Pixel_Grid) return Pixel_Grid;
    procedure Least_Squares (Domain, Range_Block : Pixel_Grid; S, O : out Float);
 
