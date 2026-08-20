@@ -20,7 +20,7 @@ begin
    Put_Line("TEST 1 - Symmetry: Identity Mapping");
    Put_Line("  1.1 Assert Identity returns unchanged coordinates");
    declare
-      Res : constant record X, Y : Positive; end record := Apply_Symmetry(1, 2, 4, Identity);
+      Res : constant Coordinate := Apply_Symmetry(1, 2, 4, Identity);
    begin
       Assert (Res.X = 1 and Res.Y = 2, "Identity failed");
       Put_Line("     PASS");
@@ -30,7 +30,7 @@ begin
    Put_Line("TEST 2 - Symmetry: Rot_90 Mapping");
    Put_Line("  2.1 Assert Rot_90 correctly translates top-left to top-right");
    declare
-      Res : constant record X, Y : Positive; end record := Apply_Symmetry(1, 1, 4, Rot_90);
+      Res : constant Coordinate := Apply_Symmetry(1, 1, 4, Rot_90);
    begin
       Assert (Res.X = 4 and Res.Y = 1, "Rot_90 failed");
       Put_Line("     PASS");
@@ -40,7 +40,7 @@ begin
    Put_Line("TEST 3 - Symmetry: Flip Horizontal");
    Put_Line("  3.1 Assert Flip_Horizontal swaps X axis correctly");
    declare
-      Res : constant record X, Y : Positive; end record := Apply_Symmetry(1, 2, 4, Flip_Horizontal);
+      Res : constant Coordinate := Apply_Symmetry(1, 2, 4, Flip_Horizontal);
    begin
       Assert (Res.X = 4 and Res.Y = 2, "Flip_H failed");
       Put_Line("     PASS");
@@ -140,8 +140,6 @@ begin
       Code     : Fractal_Code;
    begin
       Code := Encode(Grid_8x8, Quadtree, 4);
-      -- 8x8 image, 4x4 initial range blocks (4 of them), quadtree splits them to 2x2.
-      -- 4 original blocks * 4 sub-blocks = 16 transforms expected.
       Assert (Natural(Code.Length) = 16, "Quadtree partitioning count incorrect");
       Put_Line("     PASS");
    end;
