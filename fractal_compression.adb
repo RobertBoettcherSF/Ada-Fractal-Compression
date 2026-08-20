@@ -160,7 +160,11 @@ package body Fractal_Compression is
    -------------------------------------------------------------------------
    -- Encode
    -------------------------------------------------------------------------
-   function Encode (Image : Pixel_Grid; Variant : Partition_Variant := Square_Fixed; Range_Size : Positive := 4) return Fractal_Code is
+   function Encode (
+      Image       : Pixel_Grid;
+      Variant     : Partition_Variant;
+      Range_Size  : Positive
+   ) return Fractal_Code is
       Result : Fractal_Code;
       Width  : constant Positive := Image'Length(1);
       Height : constant Positive := Image'Length(2);
@@ -207,7 +211,12 @@ package body Fractal_Compression is
    -------------------------------------------------------------------------
    -- Decode
    -------------------------------------------------------------------------
-   function Decode (Code : Fractal_Code; Width, Height, Iterations : Positive) return Pixel_Grid is
+   function Decode (
+      Code       : Fractal_Code;
+      Width      : Positive;
+      Height     : Positive;
+      Iterations : Positive
+   ) return Pixel_Grid is
       Buffer_A : Pixel_Grid (1 .. Width, 1 .. Height) := (others => (others => 128.0)); -- Arbitrary start
       Buffer_B : Pixel_Grid (1 .. Width, 1 .. Height) := (others => (others => 0.0));
    begin
