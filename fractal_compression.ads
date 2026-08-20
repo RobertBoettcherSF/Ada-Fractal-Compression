@@ -55,19 +55,19 @@ package Fractal_Compression is
 
    -- Core Subprograms
    
-   -- Encodes an image using a specific partition variant
+   -- Encodes an image using a specific partition variant (Removed default values to satisfy GNAT conformance)
    function Encode (
       Image       : Pixel_Grid;
-      Variant     : Partition_Variant := Square_Fixed;
-      Range_Size  : Positive := 4
+      Variant     : Partition_Variant;
+      Range_Size  : Positive
    ) return Fractal_Code;
 
-   -- Decodes a fractal code back into an image iteratively
+   -- Decodes a fractal code back into an image iteratively (Removed default values to satisfy GNAT conformance)
    function Decode (
       Code       : Fractal_Code;
       Width      : Positive;
       Height     : Positive;
-      Iterations : Positive := 8
+      Iterations : Positive
    ) return Pixel_Grid;
 
    -- Helper Functions exposed for testing (V&V)
