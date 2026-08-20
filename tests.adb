@@ -52,7 +52,6 @@ begin
    declare
       Down : Pixel_Grid := Downsample(Grid_4x4);
    begin
-      -- FIX: Check (2,2) instead of (2,1) to avoid Ada literal transposition offsets
       Assert (Down(1,1) = 10.0 and Down(2,2) = 40.0, "Downsample failed averaging logic");
       Put_Line("     PASS");
    end;
@@ -152,7 +151,8 @@ begin
       Code : Fractal_Code;
       Res  : Pixel_Grid (1..4, 1..4);
    begin
-      Code.Append(Affine_Transform'(Range_X => 1, Range_Y => 1, Block_Size => 4, Domain_X => 1, Domain_Y => 1, Symmetry => Identity, Contrast => 0.0, Brightness => 999.0));
+      -- FIX: Block_Size adjusted to 2 so the Domain_Size (4) fits exactly within the 4x4 image buffer
+      Code.Append(Affine_Transform'(Range_X => 1, Range_Y => 1, Block_Size => 2, Domain_X => 1, Domain_Y => 1, Symmetry => Identity, Contrast => 0.0, Brightness => 999.0));
       Res := Decode(Code, 4, 4, 1);
       Assert (Res(1,1) = 255.0, "Decoding over-clamp failed");
       Put_Line("     PASS");
