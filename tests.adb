@@ -151,7 +151,8 @@ begin
       Code : Fractal_Code;
       Res  : Pixel_Grid (1..4, 1..4);
    begin
-      Code.Append((Range_X => 1, Range_Y => 1, Block_Size => 4, Domain_X => 1, Domain_Y => 1, Symmetry => Identity, Contrast => 0.0, Brightness => 999.0));
+      -- FIX: Explicitly qualify the aggregate with Affine_Transform'
+      Code.Append(Affine_Transform'(Range_X => 1, Range_Y => 1, Block_Size => 4, Domain_X => 1, Domain_Y => 1, Symmetry => Identity, Contrast => 0.0, Brightness => 999.0));
       Res := Decode(Code, 4, 4, 1);
       Assert (Res(1,1) = 255.0, "Decoding over-clamp failed");
       Put_Line("     PASS");
